@@ -17,6 +17,7 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -26,17 +27,18 @@ function Register() {
         "http://localhost:5000/api/students/register",
         formData
       );
+
       setMessage("Registered successfully!");
       setFormData({
         name: "",
         email: "",
         mobile: "",
-        
         codeforcesHandle: "",
       });
     } catch (err) {
+      console.log("Error:", err.response?.data || err.message);
       setMessage(
-        "Registration failed: " + err.response?.data?.message || err.message
+        "Registration failed: " + (err.response?.data?.error || err.message)
       );
     }
   };

@@ -50,6 +50,7 @@ const registerStudent = async (req, res) => {
 
     res.status(201).json({ message: "Student registered successfully" });
   } catch (error) {
+    // console.log("error:: ", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
