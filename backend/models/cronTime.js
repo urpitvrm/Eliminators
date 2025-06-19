@@ -3,7 +3,7 @@ const mongoose=require("mongoose")
 const cronSchema=new mongoose.Schema({
     crontime:{
         type:String,
-        default:"* 0 5 * * *",
+        default:"* 0 2 * * *",
     }
 })
 
