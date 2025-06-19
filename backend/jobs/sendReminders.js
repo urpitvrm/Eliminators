@@ -3,7 +3,7 @@ const CodeforcesData = require("../models/codeforcesDataModel");
 const sendReminderMail = require("../utils/mailer");
 
 function startReminderJob() {
-  cron.schedule("10 23 * * *", async () => {
+  cron.schedule("23 11 * * *", async () => {
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const minTimestamp = Math.floor(sevenDaysAgo.getTime() / 1000);
 

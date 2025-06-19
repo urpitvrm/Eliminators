@@ -29,10 +29,10 @@ app.use("/api/cron", cronRoutes);
 
 // Connect to DB and start server
 connectDB().then(async () => {
-  const time = await getCronTime(); // Get updated time from DB
+  const time = await getCronTime(); 
   console.log("Starting Codeforces sync with:", time || "default time");
 
-  const cronJob = scheduleCodeforcesSync(time || "* 0 2 * * *"); // fallback time
+  const cronJob = scheduleCodeforcesSync(time || "* 0 2 * * *"); 
   setCurrentJob(cronJob); // Store reference for updates
 
   // Start the reminder email job

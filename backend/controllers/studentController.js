@@ -28,24 +28,7 @@ const getAllStudents = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-// const registerStudent = async (req, res) => {
-//   const { name, email, password, mobile,codeforcesHandle } = req.body;
 
-//   try {
-//     const newStudent = new Student({
-//       name,
-//       email,
-//       password,
-//       mobile,
-//       codeforcesHandle,
-//     });
-
-//     await newStudent.save();
-//     res.status(201).json({ message: "Student registered successfully" });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// }
 const registerStudent = async (req, res) => {
   const { name, email, mobile, codeforcesHandle } = req.body;
 
@@ -60,7 +43,7 @@ const registerStudent = async (req, res) => {
 
     await newStudent.save();
 
-    // Trigger CF sync if handle is provided
+    
     if (codeforcesHandle) {
       await syncStudentCFData(newStudent);
     }

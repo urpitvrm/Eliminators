@@ -4,12 +4,11 @@ const axios = require("axios");
 const Student = require("../models/student");
 const CodeforcesData = require("../models/codeforcesDataModel");
 
-let currentTask = null; // ✅ Track currently running cron job
+let currentTask = null;
 
-// Schedule Codeforces sync job with custom cronTime
 function scheduleCodeforcesSync(cronTime) {
   if (currentTask) {
-    currentTask.stop(); // ✅ Stop the old job before scheduling a new one
+    currentTask.stop(); 
     console.log("Previous cron job stopped.");
   }
 
@@ -30,7 +29,7 @@ function scheduleCodeforcesSync(cronTime) {
           continue;
         }
 
-        await syncStudentCFData(student); // ✅ Pass full student object
+        await syncStudentCFData(student);
       }
     } catch (err) {
       console.error("Codeforces Sync Error:", err.message);
@@ -38,52 +37,7 @@ function scheduleCodeforcesSync(cronTime) {
   });
 }
 
-// Sync data for a specific student (expects full student object)
-// async function syncStudentCFData(student) {
-//   try {
-//     if (!student || !student.codeforcesHandle) return;
 
-//     const handle = student.codeforcesHandle;
-//     const userInfoURL = `https://codeforces.com/api/user.info?handles=${handle}`;
-//     const submissionsURL = `https://codeforces.com/api/user.status?handle=${handle}`;
-//     const ratingURL = `https://codeforces.com/api/user.rating?handle=${handle}`;
-
-//     const [userRes, submissionRes, ratingRes] = await Promise.all([
-//       axios.get(userInfoURL),
-//       axios.get(submissionsURL),
-//       axios.get(ratingURL),
-//     ]);
-
-//     const userInfo = userRes.data.result[0];
-//     const submissionCount = submissionRes.data.result.length;
-//     const contests = ratingRes.data.result;
-
-//     await CodeforcesData.findOneAndUpdate(
-//       { student: student._id },
-//       {
-//         student: student._id,
-//         mobile: student.mobile || "N/A",
-//         handle:student.codeforcesHandle,
-//         rating: userInfo.rating || 0,
-//         rank: userInfo.rank || "unrated",
-//         maxRating: userInfo.maxRating || 0,
-//         maxRank: userInfo.maxRank || "unrated",
-//         submissionCount,
-//         submissions: submissionRes.data.result,
-//         contests,
-//         lastUpdated: new Date(),
-//       },
-//       { upsert: true, new: true }
-//     );
-
-//     console.log(`Synced Codeforces data for: ${handle}`);
-//   } catch (err) {
-//     console.error(
-//       `Failed to sync data for student ${student.codeforcesHandle}:`,
-//       err.message
-//     );
-//   }
-// }
 async function syncStudentCFData(student) {
   try {
     const handle = student.codeforcesHandle || "missing_handle";

@@ -1,49 +1,4 @@
-// import React from "react";
-// import { NavLink } from "react-router-dom";
 
-// function Header() {
-//   return (
-//     <header className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white shadow py-4 px-6">
-//       <div className="max-w-7xl mx-auto flex justify-between items-center">
-//         {/* <h1 className="text-xl font-bold">Student Progress Management</h1> */}
-//         <NavLink
-//           to="/"
-//           className="text-2xl font-bold"
-//         >
-//           Student Progress Management
-//         </NavLink>
-//         <nav className="space-x-4">
-//           <NavLink
-//             to="/"
-//             className={({ isActive }) =>
-//               isActive ? "underline font-semibold" : "hover:underline"
-//             }
-//           >
-//             Home
-//           </NavLink>
-//           {/* <NavLink
-//             to="/about"
-//             className={({ isActive }) =>
-//               isActive ? "underline font-semibold" : "hover:underline"
-//             }
-//           >
-//             About
-//           </NavLink> */}
-//           <NavLink
-//             to="/register"
-//             className={({ isActive }) =>
-//               isActive ? "underline font-semibold" : "hover:underline"
-//             }
-//           >
-//             Add Student
-//           </NavLink>
-//         </nav>
-//       </div>
-//     </header>
-//   );
-// }
-
-// export default Header;
 
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
