@@ -1,67 +1,64 @@
 # 📊 Student Progress Management System – TLE Eliminators Assignment
 
-A full-stack MERN-based web application that allows educators and mentors to track and analyze the Codeforces performance of students. It automates Codeforces data sync, visualizes contest and problem-solving history, and sends inactivity alerts to keep students engaged.
+A full-stack **MERN** web application that allows educators and mentors to track and analyze the **Codeforces** performance of students. It automates data syncing, visualizes contest and problem-solving history, and sends inactivity reminders to keep students engaged.
 
 ## 🌐 Live Demo
 
-> Not deployed. Local run demonstration video available: [📹 Demo Video](#)  
-> GitHub Repository: [🔗 Link to Repo](https://github.com/urpitvrm/Eliminators)
+> ❌ Not deployed  
+> ✅ Local run demonstration video: [📹 Demo Video](#)  
+> 🔗 GitHub Repository: [Eliminators](https://github.com/urpitvrm/Eliminators)
 
 ---
 
 ## 📁 Project Structure
 
 ### 📦 Backend
-- `controllers/` – Business logic for students, cron, and inactivity
-- `cron/` – Cron state and Codeforces data sync
-- `jobs/` – Auto reminder email job
-- `models/` – Mongoose schemas: students, cron time, Codeforces data
-- `routes/` – Express API endpoints
-- `utils/` – Nodemailer-based mail service
+- `controllers/` – Handles logic for students, cron jobs, and inactivity
+- `cron/` – Codeforces sync scheduling and job state
+- `jobs/` – Email reminder job for inactive students
+- `models/` – Mongoose schemas (Student, CodeforcesData, CronTime)
+- `routes/` – Express API routes
+- `utils/` – Mail service using Nodemailer
 
 ### 🖼 Frontend
-- `components/` – Reusable layout and button components
-- `pages/` – Screens: Home, Register, Table, Profile, Update
-- `assets/` – CSS and theme
-- Mobile responsive + dark/light mode support
+- `components/` – UI elements: Table, CSV Export, Update Cron
+- `pages/` – Main screens: Home, Register, Profile, Update
 
 ---
 
 ## 🚀 Features
 
-### 🧾 Student Table View
-- List all enrolled students with:
-  - Name, Email, Phone, Codeforces Handle, Current/Max Rating
-- Add, Edit, Delete entries
-- View full profile (contest + problem data)
-- Download all student data as CSV
-- Display last CF data update time per student
+### 🧾 Student Table
+- View students with:
+  - Name, Email, Phone, Codeforces Handle, Current & Max Rating
+- Add, Edit, Delete student data
+- View full profile with detailed stats
+- Export entire dataset as CSV:
+  - Fields: Name, Email, Phone, Handle, Current Rating, Max Rating
 
-### 👤 Student Profile View
-- **Contest History** (30/90/365 days):
-  - Rating graph
-  - Rank, rating changes, unsolved problems
-- **Problem Solving Data** (7/30/90 days):
-  - Most difficult problem solved
-  - Total solved, average rating & problems/day
-  - Bar chart (problems by rating bucket)
+### 👤 Profile View
+- **Contest Stats**:
+  - Rating over time (30/90/365 days)
+  - Rank changes, rating jumps, contest details
+- **Problem Solving**:
+  - Total solved, avg rating, problems/day
+  - Most difficult solved problem
+  - Bar chart of problem count by difficulty
   - Submission heatmap
 
 ### 🔄 Codeforces Sync
-- Daily auto-sync (default: 2 AM)
-- Update cron time/frequency via UI
-- Re-fetch data immediately when CF handle is edited
+- Daily sync at 2 AM by default
+- Update cron time via UI
+- Manual sync on Codeforces handle update
 
 ### ✉️ Inactivity Detection
-- Identify students with no submissions in the last 7 days
-- Auto-email reminders using Nodemailer
-- Track how many times reminder sent
-- Option to disable auto-emails per student
+- Detect students with **no submissions in last 7 days**
+- Send auto email reminders via Nodemailer
+- Count reminders sent (viewable)
+- Option to disable reminders for individual students
 
-### 🎨 Bonus Features
-- Responsive on mobile/tablet
-- Light & Dark mode toggle
-- Clean and well-documented code
+### 📱 Responsive Design
+- Responsive table and card layouts for mobile/tablet
 
 ---
 
@@ -83,24 +80,27 @@ A full-stack MERN-based web application that allows educators and mentors to tra
 ```bash
 cd backend
 npm install
-# Configure .env with Mongo URI and email credentials
-npm start
+# Add your .env file with the below format
+npm run dev
 
-
---cd frontend
+Frontend
+cd frontend
 npm install
 npm run dev
---Backend .env Example
-PORT=5000
-MONGO_URI=your_mongo_uri
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_email_password
 
-Key API Endpoints
+.env Example for Backend
+
+PORT=5000
+MONGO_URI=your_mongodb_uri
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
+
 Method	Endpoint	Description
 GET	/api/students	Get all students
 POST	/api/students	Add new student
-PUT	/api/students/:id	Edit student
-DELETE	/api/students/:id	Delete student
-POST	/api/cron/update-cron	Update cron time
+PUT	/api/students/:id	Edit student info
+DELETE	/api/students/:id	Delete a student
+POST	/api/cron/update-cron	Update cron sync time
 GET	/api/codeforces/:handle	Fetch Codeforces profile instantly
+POST	/api/inactivity/reminders	Trigger reminder job (internal use)
+PUT	/api/students/:id/toggle-reminder	Enable/Disable email reminders
