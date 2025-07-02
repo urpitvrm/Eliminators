@@ -38,41 +38,30 @@ function StudentDetails() {
   const [problemDays, setProblemDays] = useState(30);
   const [contestDays, setContestDays] = useState(90);
 
-  const loadData = async (studentId) => {
+  const loadData = async (cf_id) => {
     try {
+
+
+      const cfRes = await axios.get(
+        `http://localhost:5000/api/codeforces-data/${cf_id}`
+      );
+
+      // console.log(cfRes.data)
+      setCfData(cfRes.data.data);
+      
+const studentId = cfRes.data.data.student;
+// console.log(studentId)
       const { data: student } = await axios.get(
         `http://localhost:5000/api/students/${studentId}`
       );
       setDetails(student);
 
-      const cfRes = await axios.get(
-        `http://localhost:5000/api/codeforces-data?studentId=${student._id}`
-      );
-
-      if (cfRes.data.length > 0) {
-        setCfData(cfRes.data[0]);
-      }
+      
     } catch (err) {
       console.error("Error fetching student or CF data:", err);
     }
   };
 
-  // const toggleReminder = async () => {
-  //   try {
-  //     const res = await axios.patch(
-  //       `http://localhost:5000/api/students/${id}/reminder`,
-  //       {
-  //         disable: !details.autoReminderDisabled,
-  //       }
-  //     );
-  //     setDetails((prev) => ({
-  //       ...prev,
-  //       autoReminderDisabled: res.data.autoReminderDisabled,
-  //     }));
-  //   } catch (err) {
-  //     console.error("Failed to toggle reminder", err);
-  //   }
-  // };
 
   useEffect(() => {
     loadData(id);

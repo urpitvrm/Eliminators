@@ -3,8 +3,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Table({ students }) {
-  const navigate = useNavigate();
 
+
+  const navigate = useNavigate();
+//   const d=students[0];
+//   console.log(d);
+//  console.log(d.cf_id)
   const handleView = (id) => navigate(`/student/${id}`);
 
   const handleDelete = async (id) => {
@@ -89,7 +93,7 @@ function Table({ students }) {
                     </td>
                     <td className="px-4 py-2 space-x-1">
                       <button
-                        onClick={() => handleView(student._id)}
+                        onClick={() => handleView(student.cf_id)}
                         className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
                       >
                         View
@@ -172,7 +176,7 @@ function Table({ students }) {
 
                 <div className="mt-3 flex flex-wrap gap-2">
                   <button
-                    onClick={() => handleView(student._id)}
+                    onClick={() => handleView(student.cf_id)}
                     className="bg-blue-500 text-white px-3 py-1 rounded text-xs"
                   >
                     View

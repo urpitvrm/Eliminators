@@ -11,11 +11,10 @@ router.get("/codeforces-data", async (req, res) => {
 
   try {
     const filter = studentId ? { student: studentId } : {};
-    const rawData = await CodeforcesData.find(filter).populate(
-      "student",
-      "name email mobile codeforcesHandle"
-    );
-
+    const rawData = await CodeforcesData.find(filter, {
+      contests: 0,
+      submissions: 0,
+    }).populate("student", "name email mobile codeforcesHandle");  
     
     const data = rawData.filter((entry) => entry.student);
 
@@ -49,6 +48,29 @@ router.put("/toggle/:id", async (req, res) => {
       success: false,
       message: e.message,
     });
+  }
+});
+
+router.get("/codeforces-data/:id",async(req,res)=>{
+  try{
+    const {id}=req.params;
+    const data=await CodeforcesData.findById(id);
+    if(!data){
+      return res.status(404).json({
+        success:false,
+      message:"user not found"
+      })
+    }
+    return res.status(200).json({
+      success:true,
+      data
+    })
+  }
+  catch(error){
+    return res.status(404).json({
+      success:false,
+      message:error.message,
+    })
   }
 });
 
