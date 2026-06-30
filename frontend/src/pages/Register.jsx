@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Layout from "../Layout/Layout";
+import API_BASE_URL from "../config/api";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ function Register() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/students/register",
+        `${API_BASE_URL}/api/students/register`,
         formData
       );
       setMessage("Registered successfully!");

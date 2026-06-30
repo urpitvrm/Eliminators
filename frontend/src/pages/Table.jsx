@@ -209,6 +209,7 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config/api";
 
 function Table({ students, setStudents }) {
   const navigate = useNavigate();
@@ -218,7 +219,7 @@ function Table({ students, setStudents }) {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/students/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/students/${id}`);
       setStudents((prev) => prev.filter((s) => s._id !== id));
     } catch (error) {
       console.error("Error deleting student:", error);
@@ -227,7 +228,7 @@ function Table({ students, setStudents }) {
 
   const handleToggleReminder = async (cf_id, current) => {
     try {
-      await axios.put(`http://localhost:5000/api/toggle/${cf_id}`);
+      await axios.put(`${API_BASE_URL}/api/toggle/${cf_id}`);
       setStudents((prev) =>
         prev.map((s) =>
           s.cf_id === cf_id ? { ...s, disable: current === 0 ? 1 : 0 } : s

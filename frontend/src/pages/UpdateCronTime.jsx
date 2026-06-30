@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 const timeOptions = [
   { label: "12:00 AM", cronTime: "0 0 * * *" },
@@ -41,7 +42,7 @@ function UpdateCronTime() {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/cron/update-cron",
+        `${API_BASE_URL}/api/cron/update-cron`,
         {
           cronTime: selectedTime,
         }

@@ -5,6 +5,7 @@ import Table from "./Table";
 import axios from "axios";
 import UpdateCronTime from "./UpdateCronTime";
 import ExportCSVButton from "../components/ExportCSVButton";
+import API_BASE_URL from "../config/api";
 
 function Home() {
   const [students, setStudents] = useState([]);
@@ -12,7 +13,7 @@ function Home() {
   const fetchData = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:5000/api/codeforces-data"
+        `${API_BASE_URL}/api/codeforces-data`
       );
 
       // Ensure data is an array

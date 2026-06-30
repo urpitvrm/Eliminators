@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Layout from "../Layout/Layout";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -43,7 +44,7 @@ function StudentDetails() {
 
 
       const cfRes = await axios.get(
-        `http://localhost:5000/api/codeforces-data/${cf_id}`
+        `${API_BASE_URL}/api/codeforces-data/${cf_id}`
       );
 
       // console.log(cfRes.data)
@@ -52,7 +53,7 @@ function StudentDetails() {
 const studentId = cfRes.data.data.student;
 // console.log(studentId)
       const { data: student } = await axios.get(
-        `http://localhost:5000/api/students/${studentId}`
+        `${API_BASE_URL}/api/students/${studentId}`
       );
       setDetails(student);
 

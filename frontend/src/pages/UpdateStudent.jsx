@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 function UpdateStudent() {
   const { id } = useParams();
@@ -15,7 +16,7 @@ function UpdateStudent() {
   const loadData = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/students/${id}`
+        `${API_BASE_URL}/api/students/${id}`
       );
       setName(data.name);
       setEmail(data.email);
@@ -29,7 +30,7 @@ function UpdateStudent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/students/${id}`, {
+      await axios.put(`${API_BASE_URL}/api/students/${id}`, {
         name,
         email,
         mobile,

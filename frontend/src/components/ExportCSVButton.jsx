@@ -1,10 +1,10 @@
-// components/ExportCSVButton.jsx
 import React from "react";
+import API_BASE_URL from "../config/api";
 
 const ExportCSVButton = () => {
   const handleDownload = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/students/export/csv");
+      const res = await fetch(`${API_BASE_URL}/api/students/export/csv`);
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
 
